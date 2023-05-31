@@ -1,0 +1,486 @@
+@charset "utf-8";
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(235, 235, 235);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+}
+
+tap {
+  width: 15px;
+  min-width: 5px;
+  max-width: 30px;
+  height: 100vh;
+  position: fixed;
+  background-color: #535353;
+  z-index: 1;
+}
+
+tap2 {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  /* border-bottom: 50vh solid #fafab4; */
+  border-bottom: 50vh solid rgb(235, 235, 235);
+  background-color: rgb(240, 240, 240);
+  z-index: 0;
+}
+
+main_body {
+  width: 99vw;
+  height: 100vh;
+  /* border: 1px solid burlywood; */
+  display: flex;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  align-items: start;
+  align-content: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+main {
+  width: 98%;
+  min-width: 300px;
+  height: 10vh;
+  padding-left: 7%;
+  margin-top: -3%;
+  /* margin-left: 1vh;
+  margin-right: 1vh; */
+  /* background: #ddd; */
+  display: flex;
+  /* border: 1px solid blue; */
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  position: relative;
+  /* align-content: space-between; */
+  justify-content: left;
+}
+
+main header {
+  width: 90%;
+  min-width: 290px;
+  /* border: 5px solid yellow; */
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 20px;
+}
+
+main header h1 {
+  width: 200px;
+  min-width: 200px;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  cursor: pointer;
+  /* border: 3px solid pink; */
+  border-bottom: 5px solid #535353;
+}
+
+main header h1 a {
+  font-family: "Gugi", cursive;
+  font-size: 20px;
+  color: #333;
+  text-decoration: none;
+}
+
+main header h2,
+main header h3 {
+  width: 200px;
+  min-width: 200px;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  cursor: pointer;
+  /* border: 3px solid pink; */
+  /* border-bottom: 5px solid #535353; */
+}
+
+main header h2:hover,
+main header h3:hover {
+  color: #333;
+  transition: all 0.3s;
+  border-bottom: 5px solid #535353;
+}
+
+main header h2:hover a,
+main header h3:hover a {
+  color: #333;
+}
+
+main header h2 a,
+main header h3 a {
+  font-family: "Gugi", cursive;
+  font-size: 20px;
+  color: #999;
+  text-decoration: none;
+}
+.dropdown {
+  position: relative;
+}
+
+.dropdown:hover .submenu {
+  display: flex;
+}
+
+.submenu {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  text-decoration: none;
+  /* border: 1px solid black; */
+  display: none;
+  position: absolute;
+  align-items: center;
+  align-content: center;
+  justify-content: space-between;
+  transition: all 1s;
+}
+
+.submenu li {
+  list-style-type: none;
+}
+
+.submenu li a {
+  font-family: "Gugi", cursive;
+  font-size: 12px;
+  text-decoration: none;
+  /* border-bottom: 3px solid black; */
+}
+
+#submenu01,
+#submenu02 {
+  color: #999;
+}
+
+#submenu01:hover,
+#submenu02:hover {
+  color: #333;
+  border-bottom: 3px solid #333;
+  transition: all 0.3s;
+}
+
+contents {
+  width: 80%;
+  min-width: 1200px;
+  max-width: 1200px;
+  /* min-width: 98%;
+  max-width: 98%; */
+  height: 60vh;
+  min-height: 450px;
+  max-height: 450px;
+  padding-left: 5vw;
+  margin-top: 5vh;
+  margin-left: 1vh;
+  margin-right: 1vh;
+  display: flex;
+  flex-direction: row;
+  /* border: 2px solid black; */
+  /* flex-wrap: wrap; */
+  align-items: center;
+  justify-content: left;
+  position: relative;
+  gap: 2%;
+}
+
+#inputNum {
+  width: 130px;
+  min-width: 130px;
+  max-width: 130px;
+  height: 93%;
+  background-color: rgb(235, 235, 235);
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  align-content: center;
+  justify-content: left;
+  padding-top: 20px;
+  padding-left: 10px;
+  gap: 10px;
+}
+
+#opt {
+  font-family: "Hi Melody", cursive;
+  font-size: 15px;
+  letter-spacing: 2px;
+  line-height: 20px;
+}
+
+#fnum_label,
+#lnum_label,
+#pnum_label {
+  font-family: "Hi Melody", cursive;
+  font-size: 15px;
+  letter-spacing: 2px;
+}
+
+#fnum,
+#lnum,
+#pnum {
+  font-family: "Hi Melody", cursive;
+  font-size: 13px;
+  letter-spacing: 2px;
+  width: 90%;
+  height: 20px;
+  padding-left: 5px;
+  border: 0px;
+  background-color: rgb(222, 222, 222);
+  border-bottom: 1px solid #333;
+  border-right: 1px solid #333;
+  border-bottom-right-radius: 5px;
+}
+
+#banner {
+  width: 340px;
+  min-width: 340px;
+  max-width: 340px;
+  height: 93%;
+  padding-top: 10px;
+  /* border: 10px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+  background-color: rgb(212, 212, 212);
+  position: relative;
+}
+
+#adv {
+  width: 320px;
+  min-width: 320px;
+  max-width: 320px;
+  height: 104px;
+  border: 10px solid pink;
+}
+
+footer {
+  width: 100%;
+  height: 30px;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 5vh;
+  padding-left: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  align-content: center;
+  justify-content: left;
+  /* border: 1px solid purple; */
+}
+
+#footerText span {
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+  /* border: 1px solid black; */
+}
+
+.clicked {
+  background-color: #baf5cd;
+  color: #baf5cd;
+}
+
+.disabled {
+  background-color: #ddd;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+#setItems {
+  /* min-width: 490px; */
+  width: 350px;
+  min-width: 350px;
+  height: 93%;
+  /* border: 1px solid black; */
+  background-color: rgb(235, 235, 235);
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  z-index: 2;
+}
+
+#funcButton {
+  width: 100px;
+  min-width: 100px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  /* border: 10px solid black; */
+  border-left: 3px solid rgb(116, 116, 116);
+  border-image-slice: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+#funcButton #randomButton {
+  font-family: "Hi Melody", cursive;
+  font-size: 13px;
+  letter-spacing: 2px;
+  width: 80px;
+  min-width: 80px;
+  height: 40px;
+  margin-left: 0;
+  background-color: rgb(235, 235, 235);
+  border: 1px solid rgb(1, 100, 46);
+  border-bottom: 3px solid rgb(1, 100, 46);
+  border-right: 3px solid rgb(1, 100, 46);
+}
+
+#funcButton #resetButton {
+  font-family: "Hi Melody", cursive;
+  font-size: 13px;
+  letter-spacing: 2px;
+  width: 80px;
+  height: 40px;
+  margin-left: 0;
+  color: #d81212;
+  background-color: rgb(235, 235, 235);
+  border: 1px solid #d81212;
+  border-bottom: 3px solid #d81212;
+  border-right: 3px solid #d81212;
+}
+
+#buttonContainer {
+  width: 80%;
+  display: inline-block;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-block: 20px;
+  /* border: 10px solid chocolate; */
+}
+
+button {
+  font-family: "Hi Melody", cursive;
+  font-size: 5px;
+  width: 25px;
+  height: 40px;
+  margin-left: 5px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  background-color: #ccc;
+  /* color: white; */
+  color: #333;
+  border: none;
+  border-radius: 10px;
+  align-content: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #baf5cd;
+  transition: all 0.3s;
+}
+
+#resultTextArea {
+  width: 300px;
+  min-width: 300px;
+  max-width: 300px;
+  padding-top: 20px;
+  height: 93%;
+  /* border: 10px solid burlywood; */
+  background-color: rgb(235, 235, 235);
+}
+
+#resultSaveArea {
+  width: 100%;
+  min-width: 290px;
+  max-width: 290px;
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 3%;
+  /* border: 10px solid blue; */
+}
+#clickedButtonsText {
+  width: 60%;
+  height: 60%;
+  /* min-width: 300px; */
+  /* height: 100%; */
+  margin-bottom: 10px;
+  background-color: rgb(222, 222, 222);
+  border-radius: 5px;
+  /* border-bottom: 3px solid #444; */
+  justify-content: center;
+  align-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  font-family: "Gugi", cursive;
+  font-size: 13px;
+}
+
+#saveButton {
+  font-family: "Hi Melody", cursive;
+  font-size: 13px;
+  letter-spacing: 2px;
+  width: 80px;
+  height: 40px;
+  margin-left: 0px;
+  /* margin-right: 10px; */
+  background-color: rgb(235, 235, 235);
+  border: 1px solid rgb(1, 100, 46);
+  border-bottom: 3px solid rgb(1, 100, 46);
+  border-right: 3px solid rgb(1, 100, 46);
+}
+
+#resultContainer {
+  width: 240px;
+  height: 300px;
+  margin: 10px;
+  padding-top: 10px;
+  display: flex;
+  overflow: auto;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  /* border: 3px solid #444; */
+  background-color: rgb(222, 222, 222);
+  border-radius: 10px;
+}
+
+#resultContainer::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+#resultContainer::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+}
+#resultContainer::-webkit-scrollbar-track {
+  background-color: #999;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
+
+resultText {
+  font-family: "Hi Melody", cursive;
+  font-size: 17px;
+  padding-left: 10px;
+  width: 100%;
+  height: 20px;
+  white-space: nowrap;
+  /* border: 3px solid red; */
+}

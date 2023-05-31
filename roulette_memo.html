@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="asset/style_roulette_memo.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gugi&family=Hi+Melody&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300&family=Gugi&family=Hi+Melody&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.6.0/lib/p5.js"></script>
+  </head>
+  <body>
+    <tap></tap>
+    <tap2></tap2>
+    <main_body>
+      <main>
+        <header>
+          <h1>
+            <a href="index.html">랜덤 뽑기</a>
+          </h1>
+          <h2>
+            <a href="info.html">번호 제공</a>
+          </h2>
+          <div class="dropdown">
+            <h3>
+              <a href="roulette.html">돌림판</a>
+            </h3>
+            <ul class="submenu">
+              <li><a id="submenu01" href="roulette.html">목록 돌림판</a></li>
+              <li><a id="submenu02" href="roulette_memo.html">메모 돌림판</a></li>
+            </ul>
+          </h3>
+        </header>
+      </main>
+      <contents>
+        <div id="canv"></div>
+        <div id="setControl">
+          <div id="setResult">
+            <label id="resultText">결과</label>
+          </div>
+          <div id="setButton">
+            <button id="rotate_arc" onclick="startRotation()">회전</button>
+            <button id="stop_arc" disabled="true" onclick="stopRotation()">정지</button>
+            <button id="autoStop_arc" onclick="autoStopRotation()">자동정지</button>
+            <button id="keepSpin_arc" onclick="keepSpinRotation()">원판회전</button>
+            <button id="keepStop_arc" onclick="keepStopRotation()">원판정지</button>
+            <button id="keepResult_arc" onclick="keepResultRotation()">선택</button>
+          </div>
+        </div>
+        <input type="checkbox" id="detailedSetting" />
+        <div id="detailedControlContainer" class="detailedSetting">
+          <label id="detailedSettingLabel" for="detailedSetting">설정</label>
+          <div id="detailedControl">
+            <label id="spinSpeed_label">돌림판 속도</label>
+            <input
+              type="number"
+              id="spinSpeed"
+              value="50"
+              onchange="changeSpinSpeed()"
+            />
+            <div id="divide_white_space"></div>
+            <label id="rColor_label">RGB(R)</label>
+            <input
+              type="number"
+              id="rColor"
+              value="255"
+              onchange="changeColor()"
+            />
+
+            <label id="gColor_label">RGB(G)</label>
+            <input
+              type="number"
+              id="gColor"
+              value="180"
+              onchange="changeColor()"
+            />
+
+            <label id="bColor_label">RGB(B)</label>
+            <input
+              type="number"
+              id="bColor"
+              value="180"
+              onchange="changeColor()"
+            />
+            <div id="divide_white_space"></div>
+            <div id="selectSector">
+              <label id="selectSector_label">구분 색 선택</label>
+            </div>
+            <div id="detailedRsector_label">
+              <label id="rSector_label">R</label>
+              <input
+                type="checkbox"
+                id="rSector"
+                name="rgbSector"
+                value="r"
+                onclick="checkOnlyOne(this)"
+                checked
+              />
+            </div>
+            <div id="detailedGsector_label">
+              <label id="gSector_label">G</label>
+              <input
+                type="checkbox"
+                id="gSector"
+                name="rgbSector"
+                value="g"
+                onclick="checkOnlyOne(this)"
+              />
+            </div>
+            <div id="detailedBsector_label">
+              <label id="bSector_label">B</label>
+              <input
+                type="checkbox"
+                id="bSector"
+                name="rgbSector"
+                value="b"
+                onclick="checkOnlyOne(this)"
+              />
+            </div>
+            <div id="detailedNONEsector_label">
+              <label id="noneSector_label">None</label>
+              <input
+                type="checkbox"
+                id="noneSector"
+                name="rgbSector"
+                value="none"
+                onclick="checkOnlyOne(this)"
+              />
+            </div>
+            <div id="divide_white_space"></div>
+            <div id="selectTimeShow">
+              <label id="selectTimeShow_label">시간 표시</label>
+              <input type="checkbox" id="selectTime" onclick="setCheckTime()" checked/>
+            </div>
+            <div id="divide_white_space"></div>
+            <!-- <div id="spinOptBox"> -->
+              <label id="spinOptBox_label">정지 옵션</label>
+              <div id="normalSpinOpt">
+                <label id="normalSpinOpt_label">일반</label>
+                <input
+                  type="checkbox"
+                  id="normalSpin"
+                  name="stopOpt"
+                  value="nomal"
+                  onclick="checkOnlyoneSpinOpt(this)"
+                  checked
+                />
+              </div>
+              <div id="autoStopSpinOpt">
+                <label id="autoStopSpinOpt_label">자동</label>
+                <input
+                  type="checkbox"
+                  id="autoStopSpin"
+                  name="stopOpt"
+                  value="auto"
+                  onclick="checkOnlyoneSpinOpt(this)"
+                />
+              </div>
+              <div id="multiStopSpinOpt">
+                <label id="multiStopSpinOpt_label">다중</label>
+                <input
+                  type="checkbox"
+                  id="multiStopSpin"
+                  name="stopOpt"
+                  value="multi"
+                  onclick="checkOnlyoneSpinOpt(this)"
+                />
+              </div>
+            <!-- </div> -->
+          </div>
+        </div>
+        <div id="itemBoxContainer">
+          <label id="innerItem_label">
+            줄 마다 항목 추가
+          </label>
+          <textarea 
+            rows="2" 
+            cols="100" 
+            name="contentsSentence" 
+            id="innerItem" 
+            wrap="off"
+            placeholder="메모를 입력하세요."
+            onkeypress="checkEnterKeyPress(event)"
+            onchange="textAreaInnerTextChanged()">
+          </textarea>
+        </div>
+
+        <div id="resultListBox">
+          <div id="resultListBoxLabel" >
+            <div id="resultListBoxLabel_label_box">
+              <label id="resultListBoxLabel_label">결과 목록</label>
+            </div>
+            <button id="resultListReset" onclick="resultListResetfunc()">목록제거</button>
+          </div>
+          <div id="resultListandTime">
+            <div id="resultTime"></div>
+            <div id="resultList"></div>
+          </div>
+        </div>
+
+        <script>
+          let canvasDiv = document.getElementById("canv");
+
+          // 캔버스 생성
+          let canvas = document.createElement("canvas");
+          canvasDiv.appendChild(canvas);
+
+          // 캔버스 크기 설정
+          canvas.width = 400;
+          canvas.height = 400;
+
+          // p5.js 초기화
+          let centerX, centerY;
+          function setup() {
+            let p5Canvas = createCanvas(canvas.width, canvas.height);
+            p5Canvas.parent(canvasDiv);
+            centerX = width / 2;
+            centerY = height / 2;
+          }
+          let items = [
+            "내용",
+            "내용",
+          ];
+          initialItemInnerText();
+          function initialItemInnerText() {
+            var textarea = document.getElementById("innerItem");
+            textarea.value = items.join('\n');
+          }
+          let isRotating = false;
+          var arrayResultList = [];
+          var arrayResultTime = [];
+          // var은 다른 블럭에서 동일한 이름인 경우 문제가 발생할 확률이 높다.
+          // let은 블록에서 사용 가능하나 재선언이 불가능하다.
+          var rotationSpeed = -50;
+
+          var currentRotation = 0;
+          let rotationInterval;
+          var drawRColor = 255;
+          var drawGColor = 180;
+          var drawBColor = 180;
+          var sector = "r";
+          // console.log(rotationSpeed);
+          // 룰렛판 그리기
+          if (sector === "r") {
+          } else if (sector === "g") {
+          } else if (sector === "b") {
+          } else {
+          }
+          function draw() {
+            // background(220);
+            // stroke(255)
+            // strokeWeight(0.1)
+            let numSections = items.length;
+            let angle = 360 / numSections;
+            push(); // 현재 캔버스 상태를 저장
+            translate(centerX, centerY); // 캔버스 중심으로 이동
+            rotate(radians(-90)); // -90도 회전
+            for (let i = 0; i < numSections; i++) {
+              strokeWeight(0.1);
+              if (sector === "r") {
+                fill(i * (drawRColor / numSections), drawGColor, drawBColor);
+              } else if (sector === "g") {
+                fill(drawRColor, i * (drawGColor / numSections), drawBColor);
+              } else if (sector === "b") {
+                fill(drawRColor, drawGColor, i * (drawBColor / numSections));
+              } else {
+                fill(drawRColor, drawGColor, drawBColor);
+              }
+              let startAngle = radians(i * angle + currentRotation);
+              let endAngle = radians((i + 1) * angle + currentRotation);
+              arc(0, 0, 300, 300, startAngle, endAngle); // 외부 경계선 그리기
+              // stroke(255); // 흰색으로 경계선 색상 변경
+              // strokeWeight(2); // 경계선 두께 변경
+              let midAngle = (startAngle + endAngle) / 2 + radians(angle / 2);
+              let x1 = 100 * cos(midAngle);
+              let y1 = 100 * sin(midAngle);
+              let x2 = 140 * cos(midAngle);
+              let y2 = 140 * sin(midAngle);
+              line(x1, y1, 0, 0); // 내부 경계선 그리기
+              line(x2, y2, 0, 0);
+              let textAngle = startAngle + radians(angle / 2);
+              let textX = 80 * cos(textAngle);
+              let textY = 80 * sin(textAngle);
+              textSize(10); // 텍스트 크기 설정
+              fill(0);
+              // strokeWeight(2);
+              textAlign(CENTER, CENTER); // 텍스트 정렬 설정
+              push(); // 현재 캔버스 상태를 저장
+              translate(textX, textY); // 텍스트 위치로 캔버스 이동
+              rotate(textAngle); // 텍스트 각도에 맞게 캔버스 회전
+              text(items[i], 0, 0); // 텍스트 그리기
+              pop(); // 이전 캔버스 상태로 복원
+            }
+            pop(); // 이전 캔버스 상태로 복원
+            fill(30, 120, 120); // 검은색으로 색상 설정
+            triangle(
+              centerX - 8,
+              centerY - 163,
+              centerX + 8,
+              centerY - 163,
+              centerX,
+              centerY - 135
+            ); // 아래화살표 그리기
+          }
+
+          function checkEnterKeyPress(event) {
+            if (event.key === 'Enter') {
+              textAreaInnerTextChanged();
+            }
+          }
+
+          function textAreaInnerTextChanged() {
+            const textarea = document.getElementById('innerItem');
+            const lines = textarea.value.split('\n');
+            const maxCharactersPerLine = 13;
+            const trimmedLines = lines.map(line => line.slice(0, maxCharactersPerLine));
+            items = trimmedLines.filter(line => line.trim() !== "");
+            const requiredLines = 2 - items.length;
+            if (requiredLines > 0) {
+              alert(`공백 제외 최소 2줄이어야 합니다. ${requiredLines}줄이 부족합니다.`);
+              for (let i = 0; i < requiredLines; i++) {
+                items.push("항목");
+                textarea.value += "\n항목";
+              }
+            }
+            textarea.value = textarea.value.trim(); // 공백 제거
+          }
+
+          function startRotation() {
+            var rotate_arc = document.getElementById("rotate_arc");
+            rotate_arc.style.cursor = "not-allowed";
+            rotate_arc.style.opacity = 0.3;
+            rotate_arc.disabled = true;
+
+            var stop_arc = document.getElementById("stop_arc");
+            stop_arc.style.cursor = "pointer";
+            stop_arc.style.opacity = 1;
+            stop_arc.disabled = false;
+
+            document.getElementById("resultText").innerText = "결과";
+            if (!isRotating) {
+              isRotating = true;
+              rotationInterval = setInterval(() => {
+                currentRotation += rotationSpeed;
+              }, 10);
+            }
+          }
+
+          function stopRotation() {
+            var rotate_arc = document.getElementById("rotate_arc");
+            rotate_arc.style.cursor = "pointer";
+            rotate_arc.style.opacity = 1;
+            rotate_arc.disabled = false;
+
+            var stop_arc = document.getElementById("stop_arc");
+            stop_arc.style.cursor = "not-allowed";
+            stop_arc.style.opacity = 0.3;
+            stop_arc.disabled = true;
+            if (isRotating) {
+              isRotating = false;
+              clearInterval(rotationInterval);
+              let resultIndex = Math.floor(
+                (Math.abs(currentRotation) % 360) / (360 / items.length)
+              );
+              document.getElementById("resultText").innerHTML =
+                items[resultIndex];
+              arrayResultList.push(items[resultIndex]);
+            }
+            resultListTimefunc();
+            resultListBoxfunc();
+          }
+
+          function autoStopRotation() {
+            var button = document.getElementById("autoStop_arc");
+            button.style.cursor = "not-allowed";
+            button.style.opacity = 0.3;
+            button.disabled = true;
+
+            var resultText = document.getElementById("resultText");
+            var initialSpeed = -0.01; // 초기 속도 (조정 가능)
+            var acceleration = -0.5; // 가속도 (조정 가능)
+            var maxSpeed = rotationSpeed; // 최대 속도 (조정 가능)
+            var stopTime = getRandomStopTime(5000, 8000); // 정지까지의 시간 (조정 가능)
+            var currentSpeed = initialSpeed;
+            var elapsedTime = 0;
+
+            if (!isRotating) {
+              isRotating = true;
+              rotationInterval = setInterval(() => {
+                currentRotation += currentSpeed;
+                currentSpeed += acceleration;
+                // 최대 속도 제한
+                if (currentSpeed < maxSpeed) {
+                  currentSpeed = maxSpeed;
+                }
+
+                // 경과 시간 증가
+                elapsedTime += 10;
+
+                // 속도가 최대에 도달하고 일정 시간 경과하면 정지
+                if (currentSpeed <= maxSpeed && elapsedTime >= stopTime) {
+                  button.style.cursor = "pointer";
+                  button.style.opacity = 1;
+                  button.disabled = false;
+                  stopRotation();
+                }
+              }, 10);
+
+              resultText.innerText = "결과";
+            }
+          }
+
+
+          function getRandomStopTime(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+          }
+
+          function keepSpinRotation() {
+            var keepSpin_arc = document.getElementById("keepSpin_arc");
+            keepSpin_arc.style.cursor = "not-allowed";
+            keepSpin_arc.style.opacity = 0.3;
+            keepSpin_arc.disabled = true;
+
+            var keepStop_arc = document.getElementById("keepStop_arc");
+            keepStop_arc.style.cursor = "pointer";
+            keepStop_arc.style.opacity = 1;
+            keepStop_arc.disabled = false;
+
+            var keepResult_arc = document.getElementById("keepResult_arc");
+            keepResult_arc.style.cursor = "pointer";
+            keepResult_arc.style.opacity = 1;
+            keepResult_arc.disabled = false;
+            startRotation();
+          }
+
+          function keepStopRotation() {
+            var keepSpin_arc = document.getElementById("keepSpin_arc");
+            keepSpin_arc.style.cursor = "pointer";
+            keepSpin_arc.style.opacity = 1;
+            keepSpin_arc.disabled = false;
+
+            var keepStop_arc = document.getElementById("keepStop_arc");
+            keepStop_arc.style.cursor = "not-allowed";
+            keepStop_arc.style.opacity = 0.3;
+            keepStop_arc.disabled = true;
+
+            var keepResult_arc = document.getElementById("keepResult_arc");
+            keepResult_arc.style.cursor = "not-allowed";
+            keepResult_arc.style.opacity = 0.3;
+            keepResult_arc.disabled = true;
+            if (isRotating) {
+              isRotating = false;
+              clearInterval(rotationInterval);
+            }
+          }
+
+          function keepResultRotation() {
+            let resultIndex = Math.floor(
+                (Math.abs(currentRotation) % 360) / (360 / items.length)
+              );
+            document.getElementById("resultText").innerHTML =
+              items[resultIndex];
+            arrayResultList.push(items[resultIndex]);
+            resultListTimefunc();
+            resultListBoxfunc();
+          }
+
+          function resultListTimefunc() {
+            var listTimeBox = document.getElementById("resultTime");
+            var listTime = document.createElement("resultListTimeText");
+            listTime.id = "resultListTimeText";
+            let today = new Date();   
+            let hours = today.getHours(); // 시
+            let minutes = today.getMinutes();  // 분
+            let seconds = today.getSeconds();  // 초
+            let milliseconds = today.getMilliseconds(); // 밀리초
+            arrayResultTime.push(hours + ' : ' + minutes + ' : ' + seconds + ' .' + milliseconds);
+            if( arrayResultList.length != 0 ){
+              for ( var i=0; i<arrayResultTime.length ; i++) {
+                listTime.innerHTML = arrayResultTime[i];
+              }
+              listTimeBox.appendChild(listTime);
+            }
+          }
+
+          function resultListBoxfunc() {
+            var listBox = document.getElementById("resultList");
+            var listText = document.createElement("resultListText");
+            listText.id = "resultListText";
+
+            for( var i=0; i<arrayResultList.length;i++) {
+              listText.innerHTML = arrayResultList[i];
+            }
+            listBox.appendChild(listText);
+          }
+
+          function resultListResetfunc() {
+            var listBox = document.getElementById("resultList");
+            var listTimeBox = document.getElementById("resultTime");
+
+            while (listBox.firstChild || listTimeBox.firstChild) {
+              if (listBox.firstChild) {
+                listBox.removeChild(listBox.firstChild);
+              }
+              if (listTimeBox.firstChild) {
+                listTimeBox.removeChild(listTimeBox.firstChild);
+              }
+            }
+
+            arrayResultList = [];
+            arrayResultTime = [];
+          }
+
+          function pulsItemBox() {
+            var itemBoxContainer = document.getElementById("itemBoxContainer");
+            // var itemBox = document.getElementById("itemBox");
+            var itemBox = document.createElement("div");
+            itemBox.id = "itemBox";
+            itemBox.className = "classItemBox";
+
+            // 하위 태그 생성
+            var itemBoxes = document.getElementsByClassName("classItemBox");
+            var itemBoxIndex = itemBoxes.length;
+            // console.log("itemBoxesleng "+itemBoxes.length);
+            // console.log("arraylen "+items.length);
+            var input = document.createElement("input");
+            input.type = "text";
+            input.value = itemBoxIndex + 1;
+            input.onchange = function () {
+              changeItemsValue(this, itemBoxIndex);
+              updateItems();
+              // console.log("onchange func");
+            };
+
+            var minusButton = document.createElement("button");
+            minusButton.textContent = "삭제";
+            minusButton.id = "minusItem";
+
+            minusButton.onclick = function () {
+              removeItemBox(this, itemBoxIndex);
+            };
+            //'빼기' 버튼 클릭 시
+            minusButton.addEventListener("click", function () {
+              itemBox.removeChild(input);
+              itemBox.removeChild(minusButton);
+              itemBoxContainer.removeChild(itemBox);
+              // console.log("Qorl zmfflrgn");
+              items.pop();
+              // console.log("minus addEvent");
+              // console.log(items);
+              updateItems();
+            });
+
+            // 하위 태그를 추가
+            itemBox.appendChild(input);
+            itemBox.appendChild(minusButton);
+            itemBoxContainer.appendChild(itemBox);
+            items.push(itemBoxIndex + 1);
+          }
+
+          function changeItemsValue(inputTextDocument, arrayIndex) {
+            items[arrayIndex] = inputTextDocument.value;
+            // console.log(items);
+            // console.log(arrayIndex);
+            // console.log(inputTextDocument.value);
+            // updateItem();
+            // console.log("change func");
+          }
+
+          function removeItemBox(input, index) {}
+
+          function updateItems() {
+            // console.log("update func");
+            var itemBoxes = document.getElementsByClassName("classItemBox");
+            // console.log("update func :" + itemBoxes.length);
+            items = [];
+            // console.log("update items :");
+            for (var i = 0; i < itemBoxes.length; i++) {
+              var input = itemBoxes[i].getElementsByTagName("input")[0];
+              items.push(input.value);
+            }
+            // console.log("update items :"+items);
+            // console.log(items);
+          }
+
+          function changeSpinSpeed() {
+            var spinSpeedValue = document.getElementById("spinSpeed");
+            var spinSpeed = parseInt(spinSpeedValue.value);
+            if (spinSpeed <= 0 || spinSpeedValue.value === "") {
+              alert("돌림판의 회전속도를 0보다 큰 수로 입력해 주세요.");
+              spinSpeedValue.value = 50;
+            }
+            rotationSpeed = spinSpeed * -1;
+            // currentRotation = 0;
+          }
+
+          function changeColor() {
+            var rColor = document.getElementById("rColor");
+            var gColor = document.getElementById("gColor");
+            var bColor = document.getElementById("bColor");
+            var rColorValue = parseInt(rColor.value);
+            var gColorValue = parseInt(gColor.value);
+            var bColorValue = parseInt(bColor.value);
+            var temp = 180;
+            if (rColorValue < 0 || rColorValue > 255 || rColor.value === "") {
+              rColor.value = temp;
+              alert("RGB값은 0이상 255이하의 값으로 입력해야합니다.");
+            } else if (
+              gColorValue < 0 ||
+              gColorValue > 255 ||
+              gColor.value === ""
+            ) {
+              gColor.value = temp;
+              alert("RGB값은 0이상 255이하의 값으로 입력해야합니다.");
+            } else if (
+              bColorValue < 0 ||
+              bColorValue > 255 ||
+              bColor.value === ""
+            ) {
+              bColor.value = temp;
+              alert("RGB값은 0이상 255이하의 값으로 입력해야합니다.");
+            } else {
+              drawRColor = rColorValue;
+              drawGColor = gColorValue;
+              drawBColor = bColorValue;
+            }
+          }
+
+          function checkOnlyOne(rgbn) {
+            const checkboxes = document.getElementsByName("rgbSector");
+            checkboxes.forEach((cb) => {
+              cb.checked = false;
+            });
+            rgbn.checked = true;
+            sector = rgbn.value;
+          }
+
+          function setCheckTime() {
+            var selectTimeCheckbox = document.getElementById("selectTime");
+            var resultTime = document.getElementById("resultTime");
+
+            if (selectTimeCheckbox.checked) {
+              resultTime.style.display = "flex";
+            } else {
+              resultTime.style.display = "none";
+            }
+          }
+
+          function checkOnlyoneSpinOpt(stopOpt) {
+            const checkboxes = document.getElementsByName("stopOpt");
+            for (let i = 0; i < checkboxes.length; i++) {
+              checkboxes[i].checked = (checkboxes[i] === stopOpt);
+            }
+            const rotateArcButton = document.getElementById("rotate_arc");
+            const stopArcButton = document.getElementById("stop_arc");
+            const autoStopArcButton = document.getElementById("autoStop_arc");
+            const keepSpinArcButton = document.getElementById("keepSpin_arc");
+            const keepStopArcButton = document.getElementById("keepStop_arc");
+            const keepResultArcButton = document.getElementById("keepResult_arc");
+
+            if (stopOpt.id === "normalSpin") {
+              rotateArcButton.style.display = "block";
+              stopArcButton.style.display = "block";
+              autoStopArcButton.style.display = "none";
+              keepSpinArcButton.style.display = "none";
+              keepStopArcButton.style.display = "none";
+              keepResultArcButton.style.display = "none";
+              if (isRotating) {
+                isRotating = false;
+                clearInterval(rotationInterval);
+              }
+              rotateArcButton.style.opacity = 1;
+              rotateArcButton.style.cursor = "pointer";
+              rotateArcButton.disabled = false;
+
+              stopArcButton.style.opacity = 0.3;
+              stopArcButton.style.cursor = "not-allowed";
+              stopArcButton.disabled = true;
+              currentRotation = 0;
+            } else if (stopOpt.id === "autoStopSpin") {
+              autoStopArcButton.style.display = "block";
+              rotateArcButton.style.display = "none";
+              stopArcButton.style.display = "none";
+              keepSpinArcButton.style.display = "none";
+              keepStopArcButton.style.display = "none";
+              keepResultArcButton.style.display = "none";
+              if (isRotating) {
+                isRotating = false;
+                clearInterval(rotationInterval);
+              }
+              currentRotation = 0;
+              autoStopArcButton.style.opacity = 1;
+              autoStopArcButton.style.cursor = "pointer";
+              autoStopArcButton.disabled = false
+            } else {
+              keepSpinArcButton.style.display = "block";
+              keepStopArcButton.style.display = "block";
+              keepResultArcButton.style.display = "block";
+              rotateArcButton.style.display = "none";
+              stopArcButton.style.display = "none";
+              autoStopArcButton.style.display = "none";
+              if (isRotating) {
+                isRotating = false;
+                clearInterval(rotationInterval);
+              }
+              currentRotation = 0;
+
+              keepSpinArcButton.style.opacity = 1;
+              keepSpinArcButton.style.cursor = "pointer";
+              keepSpinArcButton.disabled = false;
+
+              keepStopArcButton.style.opacity = 0.3;
+              keepStopArcButton.style.cursor = "not_allowed";
+              keepStopArcButton.disabled = true;
+
+              keepResultArcButton.style.opacity = 0.3;
+              keepResultArcButton.style.cursor = "not-allowed";
+              keepResultArcButton.disabled = true;
+            }
+          }
+
+          //textarea로 줄 마다 추가하는 것도 고려해봐야함 sub메뉴를 만들지 말지;
+        </script>
+
+        <!-- <div id="banner">
+          <div id="adv"></div>
+          <div id="adv"></div>
+          <div id="adv"></div>
+          <div id="adv"></div>
+          <div id="adv"></div>
+        </div> -->
+      </contents>
+      <footer>
+        <div id="footerText">
+          <h1>
+            <span></span>
+          </h1>
+        </div>
+      </footer>
+    </main_body>
+  </body>
+</html>
