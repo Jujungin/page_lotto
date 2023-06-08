@@ -1,12 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
+    <link rel="stylesheet" href="asset/style_info.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Cute+Font&family=Gothic+A1:wght@300&family=Gugi&family=Hi+Melody&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <tap></tap>
+    <tap2></tap2>
+    <main_body>
+      <main>
+        <header>
+          <h1>
+            <a href="index.html">랜덤 뽑기</a>
+          </h1>
+          <h2>
+            <a href="info.html">번호 정보</a>
+          </h2>
+          <div class="dropdown">
+            <h3>
+              <a href="roulette.html">돌림판</a>
+            </h3>
+            <ul class="submenu">
+              <li><a id="submenu01" href="roulette.html">목록 돌림판</a></li>
+              <li><a id="submenu02" href="roulette_memo.html">메모 돌림판</a></li>
+            </ul>
+          </h3>
+        </header>
+      </main>
+      <contents>
+        <div id="setImage">
+          <label id="setImageRound">round</label>
+          <img src="asset/img/lotto.jpg" alt="AlERT">
+        </div>
+        <div id="setText">
+          <div id="setTextMaster">
+
+          </div>
+          <div id="setTextSub">
+
+          </div>
+        </div>
+      </contents>
+      <footer>
+        <div id="footerText">
+          <h1>
+            <span></span>
+          </h1>
+        </div>
+      </footer>
+    </main_body>
+
+    <script>
+      window.onload = function () {
+        var result = [];
+        fetch("asset/csv/convert.csv")
+          .then(function (response) {
+            return response.text(); // CSV 파일을 텍스트로 읽어오기
+          })
+          .then(function (csv) {
+            var lines = csv.split("\n"); // 줄 단위로 분리하기
+
+            // var result = [];
+            var headers = lines[0].replace(/\r/g, "").split(","); // 헤더 추출 (줄바꿈 문자 제거)
+
+            for (var i = 1; i < lines.length; i++) {
+              var obj = {};
+              var currentline = lines[i].split(",");
+
+              obj[headers[0]] = currentline[0]; // index 값
+
+              // num 값을 배열로 변환
+              obj[headers[1]] = currentline.slice(1).map(function (num) {
+                return parseInt(num);
+              });
+
+              result.push(obj);
+            }
+            console.log(result[0]);
+            console.log(result[0].index);
+            console.log(result[0].num);
+            console.log(result[0].num[0]);
+          })
+          .catch(function (error) {
+            console.log("Error:", error);
+          });
+
+          fetch("asset/json/lotto.json")
+            .then(function (response) {
+              return response.json(); // JSON 파일을 JavaScript 객체로 읽어오기
+            })
+            .then(function (data) {
+              // 데이터 처리
+              // console.log("data: ",data);
+              // console.log("data.number: ",data.number);
+              // console.log("data.number[1]: ",data.number[1]);
+              // console.log("data.number[1][PTnum]: ", data.number[1]["PTnum"]);
+              // console.log("data.number[1][PTnum][0]: ", data.number[1]["PTnum"][0]);
+              // console.log("data.number[1][PTnum][0] type: ", typeof data.number[1]["PTnum"][0]);
+
+              var setImageRound = document.getElementById("setImageRound");
+              setImageRound.innerHTML = "로또 "+data.number[0].round + " 확률";
+
+              var setTextMaster = document.getElementById("setTextMaster");
+              // index 표시하는 태그 생성 및 추가
+              var indexTag = document.createElement("p");
+              indexTag.textContent = data.number[0].round;
+              setTextMaster.appendChild(indexTag);
+
+              // PTnum 표시하는 태그 생성 및 추가
+              var PTnumArray = data.number[0]["PTnum"];
+
+              for (var i = 0; i < PTnumArray.length; i++) {
+                var PTnumTag = document.createElement("span");
+                PTnumTag.textContent = PTnumArray[i];
+                setTextMaster.appendChild(PTnumTag);
+              }
+
+              var setTextSub = document.getElementById("setTextSub");
+              
+              for (var i = 1; i< data.number.length; i++) {
+                var subBox = document.createElement("div");
+                subBox.id = "subBox";
+                var indexTagSub = document.createElement("p");
+                indexTagSub.textContent = data.number[i].round;
+                subBox.appendChild(indexTagSub);
+
+                var PTnumArraySub = data.number[i]["PTnum"];
+
+                for( var j = 0; j < PTnumArraySub.length; j++) {
+                  var PtnumTagSub = document.createElement("span");
+                  for( var k = 0; k < 6; k++) {
+                    if( result[j].num[k] === PTnumArraySub[j]) {
+                      PtnumTagSub.style.fontWeight = "900";
+                      PtnumTagSub.style.fontSize = "20px";
+                    }
+                  }
+                  PtnumTagSub.textContent = PTnumArraySub[j];
+                  subBox.appendChild(PtnumTagSub);
+                }
+                setTextSub.appendChild(subBox);
+              }
+  
+            })
+            .catch(function (error) {
+              console.log("Error:", error);
+            });
+        
+
+      };
+    </script>
+    <!-- css 손봐야함 -->
+    <!-- 그리고 적중된 번호 따로 css 표시하는 방법 강구해야함 -->
+  </body>
 </html>
