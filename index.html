@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="asset/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,9 +24,15 @@
           <h1>
             <a href="index.html">랜덤 뽑기</a>
           </h1>
-          <h2>
-            <a href="info.html">번호 정보</a>
-          </h2>
+          <div class="dropdown">
+            <h2>
+              <a href="info.html">번호 정보</a>
+            </h2>
+            <ul class="submenu">
+              <li><a id="submenu03" href="info.html">로또</a></li>
+              <!-- <li><a id="submenu04" href="">연금720+</a></li> -->
+            </ul>
+          </div>
           <div class="dropdown">
             <h3>
               <a href="roulette.html">돌림판</a>
@@ -109,7 +117,14 @@
             <button id="saveButton" onclick="saveResult()">Save</button>
           </div>
           <!-- 결과 출력 -->
-          <div id="resultContainer"></div>
+          <div id="resultContainer">
+            <div id="iconBox">
+              <button id="copyButton">
+               <ion-icon name="copy-outline"></ion-icon>
+              </button>
+              <div id="messageBox" class="hide">복사되었습니다!</div>
+            </div>
+          </div>
         </div>
 
         <!-- <div id="banner">
@@ -124,7 +139,7 @@
           // 버튼을 생성할 div
           var buttonContainer = document.getElementById("buttonContainer");
           var result_all = [];
-
+          var textToCopy;
           // 초기 버튼 생성
           for (var i = 1; i <= 45; i++) {
             var button = document.createElement("button");
@@ -255,6 +270,28 @@
               resultContainer.appendChild(resultText);
             }
           }
+
+          function copyText() {
+            // 텍스트를 클립보드에 복사
+            textToCopy = "link of page\n무료 번호 추천\n\n"+result_all.join('\n');
+            navigator.clipboard.writeText(textToCopy)
+                .then(function() {
+                    showMessage();
+                })
+                .catch(function(err) {
+                    console.error('텍스트 복사 실패: ', err);
+                });
+          }
+          function showMessage() {
+              messageBox.classList.add('show');
+              setTimeout(function() {
+                  messageBox.classList.remove('show');
+              }, 1500);
+          }
+            
+            // 버튼 클릭 이벤트에 함수 연결
+          var copyButton = document.getElementById('copyButton');
+          copyButton.addEventListener('click', copyText);
         </script>
       </contents>
       <footer>

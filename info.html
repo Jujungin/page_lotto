@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <link rel="stylesheet" href="asset/style_info.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -19,9 +21,15 @@
           <h1>
             <a href="index.html">랜덤 뽑기</a>
           </h1>
-          <h2>
-            <a href="info.html">번호 정보</a>
-          </h2>
+          <div class="dropdown">
+            <h2>
+              <a href="info.html">번호 정보</a>
+            </h2>
+            <ul class="submenu">
+              <li><a id="submenu03" href="info.html">로또</a></li>
+              <!-- <li><a id="submenu04" href="">연금720+</a></li> -->
+            </ul>
+          </div>
           <div class="dropdown">
             <h3>
               <a href="roulette.html">돌림판</a>
@@ -40,11 +48,14 @@
         </div>
         <div id="setText">
           <div id="setTextMaster">
-
+            <div id="iconBox">
+              <button id="copyButton">
+               <ion-icon name="copy-outline"></ion-icon>
+              </button>
+              <div id="messageBox" class="hide">복사되었습니다!</div>
+            </div>
           </div>
-          <div id="setTextSub">
-
-          </div>
+          <div id="setTextSub"></div>
         </div>
       </contents>
       <footer>
@@ -57,6 +68,7 @@
     </main_body>
 
     <script>
+      var textToCopy;
       window.onload = function () {
         var result = [];
         fetch("asset/csv/convert.csv")
@@ -82,10 +94,10 @@
 
               result.push(obj);
             }
-            console.log(result[0]);
-            console.log(result[0].index);
-            console.log(result[0].num);
-            console.log(result[0].num[0]);
+            // console.log(result[0]);
+            // console.log(result[0].index);
+            // console.log(result[0].num);
+            // console.log(result[0].num[0]);
           })
           .catch(function (error) {
             console.log("Error:", error);
@@ -105,31 +117,44 @@
               // console.log("data.number[1][PTnum][0] type: ", typeof data.number[1]["PTnum"][0]);
 
               var setImageRound = document.getElementById("setImageRound");
-              setImageRound.innerHTML = "로또 "+data.number[0].round + " 확률";
+              setImageRound.innerHTML = "로또 "+data.number[data.number.length-1].round + " 확률";
 
               var setTextMaster = document.getElementById("setTextMaster");
               // index 표시하는 태그 생성 및 추가
+              var masterBox = document.createElement("div");
+              masterBox.id = "masterBox";
               var indexTag = document.createElement("p");
-              indexTag.textContent = data.number[0].round;
-              setTextMaster.appendChild(indexTag);
+              indexTag.textContent = data.number[data.number.length-1].round;
+              // setTextMaster.appendChild(indexTag);
+              masterBox.appendChild(indexTag);
 
               // PTnum 표시하는 태그 생성 및 추가
-              var PTnumArray = data.number[0]["PTnum"];
+              var PTnumArray = data.number[data.number.length-1]["PTnum"];
+              textToCopy = "link of page\n무료 번호 추천\n"+PTnumArray.join(' ');
 
               for (var i = 0; i < PTnumArray.length; i++) {
                 var PTnumTag = document.createElement("span");
                 PTnumTag.textContent = PTnumArray[i];
-                setTextMaster.appendChild(PTnumTag);
+                // setTextMaster.appendChild(PTnumTag);
+                masterBox.appendChild(PTnumTag);
               }
+              setTextMaster.appendChild(masterBox);
 
               var setTextSub = document.getElementById("setTextSub");
               
-              for (var i = 1; i< data.number.length; i++) {
+              for (var i = data.number.length-2; i> 0; i--) {
+                var count = 0;
                 var subBox = document.createElement("div");
                 subBox.id = "subBox";
+                var subBoxNumber = document.createElement("div");
+                subBoxNumber.id = "subBoxNumber";
+                var correctCount = document.createElement("div");
+                correctCount.id = "correctCount";
                 var indexTagSub = document.createElement("p");
                 indexTagSub.textContent = data.number[i].round;
-                subBox.appendChild(indexTagSub);
+
+                // subBox.appendChild(indexTagSub);
+                subBoxNumber.appendChild(indexTagSub);
 
                 var PTnumArraySub = data.number[i]["PTnum"];
 
@@ -139,11 +164,20 @@
                     if( result[j].num[k] === PTnumArraySub[j]) {
                       PtnumTagSub.style.fontWeight = "900";
                       PtnumTagSub.style.fontSize = "20px";
+                      count +=1;
                     }
                   }
                   PtnumTagSub.textContent = PTnumArraySub[j];
-                  subBox.appendChild(PtnumTagSub);
+                  // subBox.appendChild(PtnumTagSub);
+                  subBoxNumber.appendChild(PtnumTagSub);
                 }
+                if(count === 6) {
+                  correctCount.style.fontWeight = "900";
+                  correctCount.style.fontSize = "20px";
+                }
+                correctCount.innerHTML = count;
+                subBox.appendChild(subBoxNumber);
+                subBox.appendChild(correctCount);
                 setTextSub.appendChild(subBox);
               }
   
@@ -154,6 +188,27 @@
         
 
       };
+
+      function copyText() {
+            // 텍스트를 클립보드에 복사
+            navigator.clipboard.writeText(textToCopy)
+                .then(function() {
+                    showMessage();
+                })
+                .catch(function(err) {
+                    console.error('텍스트 복사 실패: ', err);
+                });
+      }
+      function showMessage() {
+          messageBox.classList.add('show');
+          setTimeout(function() {
+              messageBox.classList.remove('show');
+          }, 1500);
+      }
+        
+        // 버튼 클릭 이벤트에 함수 연결
+      var copyButton = document.getElementById('copyButton');
+      copyButton.addEventListener('click', copyText);
     </script>
     <!-- css 손봐야함 -->
     <!-- 그리고 적중된 번호 따로 css 표시하는 방법 강구해야함 -->

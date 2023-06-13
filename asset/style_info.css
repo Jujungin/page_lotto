@@ -165,13 +165,20 @@ main header h3 a {
   /* border-bottom: 3px solid black; */
 }
 
+#submenu03 {
+  color: #333;
+  border-bottom: 3px solid #333;
+}
+
 #submenu01,
-#submenu02 {
+#submenu02,
+#submenu04 {
   color: #999;
 }
 
 #submenu01:hover,
-#submenu02:hover {
+#submenu02:hover,
+#submenu04:hover {
   color: #333;
   border-bottom: 3px solid #333;
   transition: all 0.3s;
@@ -239,8 +246,61 @@ contents {
   width: 100%;
   height: 50px;
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
   border-bottom: 2px double #333;
+  /* border: 1px solid #333; */
+}
+
+#copyButton {
+  border: none;
+}
+
+#iconBox {
+  margin-top: 5px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* border: 1px solid black; */
+}
+
+ion-icon {
+  width: 20px;
+  height: 20px;
+}
+
+#messageBox {
+  position: fixed;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #535353;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  color: rgb(235, 235, 235);
+  transition: opacity 2s;
+}
+
+.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.show {
+  opacity: 1;
+}
+
+#masterBox {
+  width: 90%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid red; */
 }
 
 #setTextMaster p {
@@ -262,6 +322,8 @@ contents {
   align-items: center;
   justify-content: center;
   text-align: center;
+  font-weight: 900;
+  font-size: 20px;
   /* border: 1px solid black; */
 }
 
@@ -293,11 +355,33 @@ contents {
 }
 
 #subBox {
-  width: 97%;
+  width: 100%;
   height: 30px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   /* border: 1px solid black; */
+}
+
+#subBoxNumber {
+  width: 90%;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid red; */
+}
+
+#correctCount {
+  width: 5%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Cute Font', cursive;
+  font-weight: 300;
+  font-size: 17px;
+  /* border: 1px solid pink; */
 }
 
 #setTextSub p {
@@ -307,7 +391,8 @@ contents {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-family: 'Black Han Sans', sans-serif;
+  /* font-family: 'Black Han Sans', sans-serif; */
+  font-family: 'Cute Font', cursive;
   /* border: 1px solid black; */
 }
 

@@ -136,11 +136,15 @@ main header h3 a {
   border-bottom: 3px solid #333;
 }
 
-#submenu01 {
+#submenu01,
+#submenu03,
+#submenu04 {
   color: #999;
 }
 
-#submenu01:hover {
+#submenu01:hover,
+#submenu03:hover,
+#submenu04:hover {
   color: #333;
   border-bottom: 3px solid #333;
   transition: all 0.3s;
