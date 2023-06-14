@@ -94,10 +94,10 @@
 
               result.push(obj);
             }
-            // console.log(result[0]);
-            // console.log(result[0].index);
-            // console.log(result[0].num);
-            // console.log(result[0].num[0]);
+            console.log(result[0]);
+            console.log(result[0].index);
+            console.log(result[0].num);
+            console.log(result[0].num[0]);
           })
           .catch(function (error) {
             console.log("Error:", error);
@@ -142,6 +142,7 @@
 
               var setTextSub = document.getElementById("setTextSub");
               
+              var p = 0;
               for (var i = data.number.length-2; i> 0; i--) {
                 var count = 0;
                 var subBox = document.createElement("div");
@@ -157,11 +158,12 @@
                 subBoxNumber.appendChild(indexTagSub);
 
                 var PTnumArraySub = data.number[i]["PTnum"];
-
+                console.log("i: ",i," PTAS: ",PTnumArraySub)
+                console.log("PTAS Length: ",PTnumArraySub.length)
                 for( var j = 0; j < PTnumArraySub.length; j++) {
                   var PtnumTagSub = document.createElement("span");
                   for( var k = 0; k < 6; k++) {
-                    if( result[j].num[k] === PTnumArraySub[j]) {
+                    if( result[p].num[k] === PTnumArraySub[j]) {
                       PtnumTagSub.style.fontWeight = "900";
                       PtnumTagSub.style.fontSize = "20px";
                       count +=1;
@@ -179,6 +181,7 @@
                 subBox.appendChild(subBoxNumber);
                 subBox.appendChild(correctCount);
                 setTextSub.appendChild(subBox);
+                p++;
               }
   
             })
