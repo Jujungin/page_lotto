@@ -335,7 +335,7 @@ footer {
   align-items: center;
   justify-content: space-between;
 }
-#funcButton #randomButton {
+#randomButton {
   font-family: "Hi Melody", cursive;
   font-size: 13px;
   letter-spacing: 2px;
@@ -348,8 +348,12 @@ footer {
   border-bottom: 3px solid rgb(1, 100, 46);
   border-right: 3px solid rgb(1, 100, 46);
 }
+#randomButton:hover {
+  background-color: #999;
+  color: rgb(235, 235, 235);
+}
 
-#funcButton #resetButton {
+#resetButton {
   font-family: "Hi Melody", cursive;
   font-size: 13px;
   letter-spacing: 2px;
@@ -361,6 +365,10 @@ footer {
   border: 1px solid #d81212;
   border-bottom: 3px solid #d81212;
   border-right: 3px solid #d81212;
+}
+#resetButton:hover {
+  background-color: #999;
+  color: rgb(235, 235, 235);
 }
 
 #buttonContainer {
@@ -466,11 +474,16 @@ button:hover {
   border-bottom: 3px solid rgb(1, 100, 46);
   border-right: 3px solid rgb(1, 100, 46);
 }
+#saveButton:hover {
+  background-color: #999;
+  color: rgb(235, 235, 235);
+}
 
 
 #copyButton {
   background-color: rgb(235, 235, 235);
   border: none;
+  cursor: pointer;
 }
 
 #iconBox {

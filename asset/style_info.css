@@ -255,6 +255,7 @@ contents {
 
 #copyButton {
   border: none;
+  cursor: pointer;
 }
 
 #iconBox {

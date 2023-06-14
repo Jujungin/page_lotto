@@ -259,6 +259,11 @@ contents {
   border-radius: 10px;
   border: 2px solid #535353;
   opacity: 1;
+  transition: 0.3s;
+}
+#rotate_arc:hover {
+  background-color: #999;
+  color: rgb(235, 235, 235);
 }
 
 #stop_arc {
@@ -276,6 +281,11 @@ contents {
   border-radius: 10px;
   border: 2px solid #535353;
   opacity: 0.3;
+  transition: 0.3s;
+}
+#stop_arc:hover {
+  background-color: #999;
+  color: rgb(235, 235, 235);
 }
 
 #autoStop_arc {
@@ -294,6 +304,11 @@ contents {
   border-radius: 10px;
   border: 2px solid #535353;
   opacity: 1;
+  transition: 0.3s;
+}
+#autoStop_arc:hover {
+  background-color: #999;
+  color: rgb(235, 235, 235);
 }
 
 #keepSpin_arc {
@@ -312,6 +327,11 @@ contents {
   border-radius: 10px;
   border: 2px solid #535353;
   opacity: 1;
+  transition: 0.3s;
+}
+#keepSpin_arc:hover {
+  background-color: #999;
+  color: rgb(235, 235, 235);
 }
 
 #keepStop_arc {
@@ -330,6 +350,11 @@ contents {
   border-radius: 10px;
   border: 2px solid #535353;
   opacity: 0.3;
+  transition: 0.3s;
+}
+#keepStop_arc:hover {
+  background-color: #999;
+  color: rgb(235, 235, 235);
 }
 
 #keepResult_arc {
@@ -348,6 +373,11 @@ contents {
   border-radius: 10px;
   border: 2px solid #535353;
   opacity: 0.3;
+  transition: 0.3s;
+}
+#keepResult_arc:hover {
+  background-color: #999;
+  color: rgb(235, 235, 235);
 }
 
 
@@ -424,6 +454,12 @@ contents {
   border: 1px solid #535353;
   border-radius: 5px;
   background-color: rgb(235, 235, 235);
+  cursor: pointer;
+  transition: 0.3s;
+}
+#pulsItem:hover {
+  background-color: #999;
+  color: rgb(235, 235, 235);
 }
 
 #itemBox {
@@ -459,6 +495,7 @@ contents {
   max-height: 20px;
   font-family: "Hi Melody";
   font-size: 13px;
+  cursor: pointer;
 }
 
 #divide_white_space {
@@ -497,8 +534,14 @@ contents {
   border-right: 3px double #333;
   transition: all 0.3s;
   background-color: rgb(235, 235, 235);
+  cursor: pointer;
   /* background-image: url("https://img.icons8.com/small/16/gear.png"); */
   /* background-repeat: no-repeat; */
+}
+
+#detailedSettingLabel:hover {
+  background-color: #999;
+  color: rgb(235, 235, 235);
 }
 
 #detailedSetting:checked ~ .detailedSetting #detailedSettingLabel {
@@ -689,6 +732,12 @@ contents {
   font-family: "Hi Melody";
   border: 1px solid #333;
   border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+#resultListReset:hover {
+  background-color: #999;
+  color: rgb(235, 235, 235);
 }
 
 #resultListandTime {
