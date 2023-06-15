@@ -118,7 +118,7 @@
 
               // PTnum 표시하는 태그 생성 및 추가
               var PTnumArray = data.number[data.number.length-1]["PTnum"];
-              textToCopy = "https://jujungin.github.io/randompages/\n무료 번호 추천\n"+PTnumArray.join(' ');
+              textToCopy = "https://jujungin.github.io/randompages/\n무료 번호 추천\n"+data.number[data.number.length-1].round+"\n"+PTnumArray.join(' ');
 
               for (var i = 0; i < PTnumArray.length; i++) {
                 var PTnumTag = document.createElement("span");
