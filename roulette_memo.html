@@ -251,7 +251,6 @@
           var drawGColor = 180;
           var drawBColor = 180;
           var sector = "r";
-          // console.log(rotationSpeed);
           // 룰렛판 그리기
           if (sector === "r") {
           } else if (sector === "g") {
@@ -533,15 +532,12 @@
             // 하위 태그 생성
             var itemBoxes = document.getElementsByClassName("classItemBox");
             var itemBoxIndex = itemBoxes.length;
-            // console.log("itemBoxesleng "+itemBoxes.length);
-            // console.log("arraylen "+items.length);
             var input = document.createElement("input");
             input.type = "text";
             input.value = itemBoxIndex + 1;
             input.onchange = function () {
               changeItemsValue(this, itemBoxIndex);
               updateItems();
-              // console.log("onchange func");
             };
 
             var minusButton = document.createElement("button");
@@ -556,10 +552,7 @@
               itemBox.removeChild(input);
               itemBox.removeChild(minusButton);
               itemBoxContainer.removeChild(itemBox);
-              // console.log("Qorl zmfflrgn");
               items.pop();
-              // console.log("minus addEvent");
-              // console.log(items);
               updateItems();
             });
 
@@ -572,27 +565,17 @@
 
           function changeItemsValue(inputTextDocument, arrayIndex) {
             items[arrayIndex] = inputTextDocument.value;
-            // console.log(items);
-            // console.log(arrayIndex);
-            // console.log(inputTextDocument.value);
-            // updateItem();
-            // console.log("change func");
           }
 
           function removeItemBox(input, index) {}
 
           function updateItems() {
-            // console.log("update func");
             var itemBoxes = document.getElementsByClassName("classItemBox");
-            // console.log("update func :" + itemBoxes.length);
             items = [];
-            // console.log("update items :");
             for (var i = 0; i < itemBoxes.length; i++) {
               var input = itemBoxes[i].getElementsByTagName("input")[0];
               items.push(input.value);
             }
-            // console.log("update items :"+items);
-            // console.log(items);
           }
 
           function changeSpinSpeed() {

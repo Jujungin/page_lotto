@@ -94,10 +94,6 @@
 
               result.push(obj);
             }
-            console.log(result[0]);
-            console.log(result[0].index);
-            console.log(result[0].num);
-            console.log(result[0].num[0]);
           })
           .catch(function (error) {
             console.log("Error:", error);
@@ -108,14 +104,6 @@
               return response.json(); // JSON 파일을 JavaScript 객체로 읽어오기
             })
             .then(function (data) {
-              // 데이터 처리
-              // console.log("data: ",data);
-              // console.log("data.number: ",data.number);
-              // console.log("data.number[1]: ",data.number[1]);
-              // console.log("data.number[1][PTnum]: ", data.number[1]["PTnum"]);
-              // console.log("data.number[1][PTnum][0]: ", data.number[1]["PTnum"][0]);
-              // console.log("data.number[1][PTnum][0] type: ", typeof data.number[1]["PTnum"][0]);
-
               var setImageRound = document.getElementById("setImageRound");
               setImageRound.innerHTML = "로또 "+data.number[data.number.length-1].round + " 확률";
 
@@ -130,7 +118,7 @@
 
               // PTnum 표시하는 태그 생성 및 추가
               var PTnumArray = data.number[data.number.length-1]["PTnum"];
-              textToCopy = "link of page\n무료 번호 추천\n"+PTnumArray.join(' ');
+              textToCopy = "https://jujungin.github.io/randompages/\n무료 번호 추천\n"+PTnumArray.join(' ');
 
               for (var i = 0; i < PTnumArray.length; i++) {
                 var PTnumTag = document.createElement("span");
@@ -158,8 +146,6 @@
                 subBoxNumber.appendChild(indexTagSub);
 
                 var PTnumArraySub = data.number[i]["PTnum"];
-                console.log("i: ",i," PTAS: ",PTnumArraySub)
-                console.log("PTAS Length: ",PTnumArraySub.length)
                 for( var j = 0; j < PTnumArraySub.length; j++) {
                   var PtnumTagSub = document.createElement("span");
                   for( var k = 0; k < 6; k++) {
