@@ -58,7 +58,6 @@
           <label id="opt">제외 할 번호를 <br />클릭하세요.</label>
         </div>
         <script>
-          // fnum, lnum 값 비교
           function checkInput() {
             var fnum = parseInt(document.getElementById("fnum").value);
             var lnum = parseInt(document.getElementById("lnum").value);
@@ -93,15 +92,12 @@
             update();
           }
         </script>
-        <!-- 버튼을 생성할 div -->
         <div id="setItems">
           <div id="buttonContainer"></div>
           <div id="funcButton">
-            <!-- 랜덤 버튼 -->
             <button id="randomButton" onclick="randomButtonClicked()">
               Random
             </button>
-            <!-- 초기화 버튼 -->
             <button id="resetButton" onclick="resetButtonClicked()">
               Reset
             </button>
@@ -110,13 +106,9 @@
 
         <div id="resultTextArea">
           <div id="resultSaveArea">
-            <!-- 클릭된 버튼을 출력할 text -->
             <p id="clickedButtonsText"></p>
-
-            <!-- 결과 저장 버튼 -->
             <button id="saveButton" onclick="saveResult()">Save</button>
           </div>
-          <!-- 결과 출력 -->
           <div id="resultContainer">
             <div id="iconBox">
               <button id="copyButton">
@@ -136,11 +128,10 @@
         </div> -->
 
         <script>
-          // 버튼을 생성할 div
           var buttonContainer = document.getElementById("buttonContainer");
           var result_all = [];
           var textToCopy;
-          // 초기 버튼 생성
+
           for (var i = 1; i <= 45; i++) {
             var button = document.createElement("button");
             button.innerHTML = i;
@@ -150,7 +141,6 @@
             buttonContainer.appendChild(button);
           }
 
-          // checkInput() 후 버튼 생성
           function update() {
             while (buttonContainer.firstChild) {
               buttonContainer.removeChild(buttonContainer.firstChild);
@@ -168,21 +158,16 @@
             }
           }
 
-          // 클릭된 버튼을 저장할 배열
           var clickedButtons = [];
 
-          // 버튼 클릭 이벤트 핸들러
           function buttonClicked(button) {
             var fnum = parseInt(document.getElementById("fnum").value);
             var lnum = parseInt(document.getElementById("lnum").value);
             var pnum = parseInt(document.getElementById("pnum").value);
-            // 클릭된 버튼인지 확인
             if (button.classList.contains("clicked")) {
-              // 이미 클릭된 버튼이면 배열에서 제거
               clickedButtons.splice(clickedButtons.indexOf(button), 1);
               button.classList.remove("clicked");
             } else {
-              // 클릭되지 않은 버튼이면 배열에 추가
               if (clickedButtons.length < lnum - fnum + 1 - pnum) {
                 clickedButtons.push(button);
                 button.classList.add("clicked");
@@ -196,12 +181,10 @@
             }
           }
 
-          // 랜덤 버튼 클릭 이벤트 핸들러
           function randomButtonClicked() {
             var fnum = parseInt(document.getElementById("fnum").value);
             var lnum = parseInt(document.getElementById("lnum").value);
             var pnum = parseInt(document.getElementById("pnum").value);
-            // 클릭되지 않은 버튼 중에서 랜덤으로 6개 선택
             var unclickedButtons = [];
             var buttons = document.getElementsByTagName("button");
             for (var i = 0; i < lnum - fnum + 1; i++) {
@@ -237,15 +220,12 @@
             }
           }
 
-          // 초기화 버튼 클릭 이벤트 핸들러
           function resetButtonClicked() {
-            // 클릭된 버튼 초기화
             for (var i = 0; i < clickedButtons.length; i++) {
               clickedButtons[i].classList.remove("clicked");
             }
             clickedButtons = [];
 
-            // 클릭된 버튼 출력 초기화
             var clickedButtonsText =
               document.getElementById("clickedButtonsText");
             clickedButtonsText.innerHTML = "";
@@ -272,7 +252,6 @@
           }
 
           function copyText() {
-            // 텍스트를 클립보드에 복사
             textToCopy = "https://jujungin.github.io/randompages/\n무료 번호 추천\n\n"+result_all.join('\n');
             navigator.clipboard.writeText(textToCopy)
                 .then(function() {
@@ -288,8 +267,6 @@
                   messageBox.classList.remove('show');
               }, 1500);
           }
-            
-            // 버튼 클릭 이벤트에 함수 연결
           var copyButton = document.getElementById('copyButton');
           copyButton.addEventListener('click', copyText);
         </script>

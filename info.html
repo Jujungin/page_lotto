@@ -73,21 +73,19 @@
         var result = [];
         fetch("asset/csv/convert.csv")
           .then(function (response) {
-            return response.text(); // CSV 파일을 텍스트로 읽어오기
+            return response.text();
           })
           .then(function (csv) {
-            var lines = csv.split("\n"); // 줄 단위로 분리하기
+            var lines = csv.split("\n");
 
-            // var result = [];
-            var headers = lines[0].replace(/\r/g, "").split(","); // 헤더 추출 (줄바꿈 문자 제거)
+            var headers = lines[0].replace(/\r/g, "").split(",");
 
             for (var i = 1; i < lines.length; i++) {
               var obj = {};
               var currentline = lines[i].split(",");
 
-              obj[headers[0]] = currentline[0]; // index 값
+              obj[headers[0]] = currentline[0];
 
-              // num 값을 배열로 변환
               obj[headers[1]] = currentline.slice(1).map(function (num) {
                 return parseInt(num);
               });
@@ -101,29 +99,25 @@
 
           fetch("asset/json/lotto.json")
             .then(function (response) {
-              return response.json(); // JSON 파일을 JavaScript 객체로 읽어오기
+              return response.json();
             })
             .then(function (data) {
               var setImageRound = document.getElementById("setImageRound");
               setImageRound.innerHTML = "로또 "+data.number[data.number.length-1].round + " 확률";
 
               var setTextMaster = document.getElementById("setTextMaster");
-              // index 표시하는 태그 생성 및 추가
               var masterBox = document.createElement("div");
               masterBox.id = "masterBox";
               var indexTag = document.createElement("p");
               indexTag.textContent = data.number[data.number.length-1].round;
-              // setTextMaster.appendChild(indexTag);
               masterBox.appendChild(indexTag);
 
-              // PTnum 표시하는 태그 생성 및 추가
               var PTnumArray = data.number[data.number.length-1]["PTnum"];
               textToCopy = "https://jujungin.github.io/randompages/\n무료 번호 추천\n"+data.number[data.number.length-1].round+"\n"+PTnumArray.join(' ');
 
               for (var i = 0; i < PTnumArray.length; i++) {
                 var PTnumTag = document.createElement("span");
                 PTnumTag.textContent = PTnumArray[i];
-                // setTextMaster.appendChild(PTnumTag);
                 masterBox.appendChild(PTnumTag);
               }
               setTextMaster.appendChild(masterBox);
@@ -142,7 +136,6 @@
                 var indexTagSub = document.createElement("p");
                 indexTagSub.textContent = data.number[i].round;
 
-                // subBox.appendChild(indexTagSub);
                 subBoxNumber.appendChild(indexTagSub);
 
                 var PTnumArraySub = data.number[i]["PTnum"];
@@ -156,7 +149,6 @@
                     }
                   }
                   PtnumTagSub.textContent = PTnumArraySub[j];
-                  // subBox.appendChild(PtnumTagSub);
                   subBoxNumber.appendChild(PtnumTagSub);
                 }
                 if(count === 6) {
@@ -179,7 +171,6 @@
       };
 
       function copyText() {
-            // 텍스트를 클립보드에 복사
             navigator.clipboard.writeText(textToCopy)
                 .then(function() {
                     showMessage();
@@ -194,12 +185,9 @@
               messageBox.classList.remove('show');
           }, 1500);
       }
-        
-        // 버튼 클릭 이벤트에 함수 연결
+
       var copyButton = document.getElementById('copyButton');
       copyButton.addEventListener('click', copyText);
     </script>
-    <!-- css 손봐야함 -->
-    <!-- 그리고 적중된 번호 따로 css 표시하는 방법 강구해야함 -->
   </body>
 </html>

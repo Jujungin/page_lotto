@@ -144,7 +144,6 @@
               <input type="checkbox" id="selectTime" onclick="setCheckTime()" checked/>
             </div>
             <div id="divide_white_space"></div>
-            <!-- <div id="spinOptBox"> -->
               <label id="spinOptBox_label">정지 옵션</label>
               <div id="normalSpinOpt">
                 <label id="normalSpinOpt_label">일반</label>
@@ -177,7 +176,6 @@
                   onclick="checkOnlyoneSpinOpt(this)"
                 />
               </div>
-            <!-- </div> -->
           </div>
         </div>
         <div id="itemBoxContainer">
@@ -212,15 +210,12 @@
         <script>
           let canvasDiv = document.getElementById("canv");
 
-          // 캔버스 생성
           let canvas = document.createElement("canvas");
           canvasDiv.appendChild(canvas);
 
-          // 캔버스 크기 설정
           canvas.width = 400;
           canvas.height = 400;
 
-          // p5.js 초기화
           let centerX, centerY;
           function setup() {
             let p5Canvas = createCanvas(canvas.width, canvas.height);
@@ -239,8 +234,7 @@
           let isRotating = false;
           var arrayResultList = [];
           var arrayResultTime = [];
-          // var은 다른 블럭에서 동일한 이름인 경우 문제가 발생할 확률이 높다.
-          // let은 블록에서 사용 가능하나 재선언이 불가능하다.
+
           var rotationSpeed = -50;
 
           var currentRotation = 0;
@@ -249,21 +243,18 @@
           var drawGColor = 180;
           var drawBColor = 180;
           var sector = "r";
-          // 룰렛판 그리기
+
           if (sector === "r") {
           } else if (sector === "g") {
           } else if (sector === "b") {
           } else {
           }
           function draw() {
-            // background(220);
-            // stroke(255)
-            // strokeWeight(0.1)
             let numSections = items.length;
             let angle = 360 / numSections;
-            push(); // 현재 캔버스 상태를 저장
-            translate(centerX, centerY); // 캔버스 중심으로 이동
-            rotate(radians(-90)); // -90도 회전
+            push();
+            translate(centerX, centerY);
+            rotate(radians(-90));
             for (let i = 0; i < numSections; i++) {
               strokeWeight(0.1);
               if (sector === "r") {
@@ -277,31 +268,29 @@
               }
               let startAngle = radians(i * angle + currentRotation);
               let endAngle = radians((i + 1) * angle + currentRotation);
-              arc(0, 0, 300, 300, startAngle, endAngle); // 외부 경계선 그리기
-              // stroke(255); // 흰색으로 경계선 색상 변경
-              // strokeWeight(2); // 경계선 두께 변경
+              arc(0, 0, 300, 300, startAngle, endAngle);
               let midAngle = (startAngle + endAngle) / 2 + radians(angle / 2);
               let x1 = 100 * cos(midAngle);
               let y1 = 100 * sin(midAngle);
               let x2 = 140 * cos(midAngle);
               let y2 = 140 * sin(midAngle);
-              line(x1, y1, 0, 0); // 내부 경계선 그리기
+              line(x1, y1, 0, 0);
               line(x2, y2, 0, 0);
               let textAngle = startAngle + radians(angle / 2);
               let textX = 80 * cos(textAngle);
               let textY = 80 * sin(textAngle);
-              textSize(10); // 텍스트 크기 설정
+              textSize(10);
               fill(0);
-              // strokeWeight(2);
-              textAlign(CENTER, CENTER); // 텍스트 정렬 설정
-              push(); // 현재 캔버스 상태를 저장
-              translate(textX, textY); // 텍스트 위치로 캔버스 이동
-              rotate(textAngle); // 텍스트 각도에 맞게 캔버스 회전
-              text(items[i], 0, 0); // 텍스트 그리기
-              pop(); // 이전 캔버스 상태로 복원
+
+              textAlign(CENTER, CENTER);
+              push();
+              translate(textX, textY);
+              rotate(textAngle);
+              text(items[i], 0, 0);
+              pop();
             }
-            pop(); // 이전 캔버스 상태로 복원
-            fill(30, 120, 120); // 검은색으로 색상 설정
+            pop();
+            fill(30, 120, 120);
             triangle(
               centerX - 8,
               centerY - 163,
@@ -309,7 +298,7 @@
               centerY - 163,
               centerX,
               centerY - 135
-            ); // 아래화살표 그리기
+            );
           }
 
           function startRotation() {
@@ -363,10 +352,10 @@
             button.disabled = true;
 
             var resultText = document.getElementById("resultText");
-            var initialSpeed = -0.01; // 초기 속도 (조정 가능)
-            var acceleration = -0.5; // 가속도 (조정 가능)
-            var maxSpeed = rotationSpeed; // 최대 속도 (조정 가능)
-            var stopTime = getRandomStopTime(5000, 8000); // 정지까지의 시간 (조정 가능)
+            var initialSpeed = -0.01;
+            var acceleration = -0.5;
+            var maxSpeed = rotationSpeed;
+            var stopTime = getRandomStopTime(5000, 8000);
             var currentSpeed = initialSpeed;
             var elapsedTime = 0;
 
@@ -375,15 +364,12 @@
               rotationInterval = setInterval(() => {
                 currentRotation += currentSpeed;
                 currentSpeed += acceleration;
-                // 최대 속도 제한
                 if (currentSpeed < maxSpeed) {
                   currentSpeed = maxSpeed;
                 }
 
-                // 경과 시간 증가
                 elapsedTime += 10;
 
-                // 속도가 최대에 도달하고 일정 시간 경과하면 정지
                 if (currentSpeed <= maxSpeed && elapsedTime >= stopTime) {
                   button.style.cursor = "pointer";
                   button.style.opacity = 1;
@@ -456,10 +442,10 @@
             var listTime = document.createElement("resultListTimeText");
             listTime.id = "resultListTimeText";
             let today = new Date();   
-            let hours = today.getHours(); // 시
-            let minutes = today.getMinutes();  // 분
-            let seconds = today.getSeconds();  // 초
-            let milliseconds = today.getMilliseconds(); // 밀리초
+            let hours = today.getHours();
+            let minutes = today.getMinutes();
+            let seconds = today.getSeconds();
+            let milliseconds = today.getMilliseconds();
             arrayResultTime.push(hours + ':' + minutes + ':' + seconds + '.' + milliseconds);
             if( arrayResultList.length != 0 ){
               for ( var i=0; i<arrayResultTime.length ; i++) {
@@ -499,12 +485,10 @@
 
           function pulsItemBox() {
             var itemBoxContainer = document.getElementById("itemBoxContainer");
-            // var itemBox = document.getElementById("itemBox");
             var itemBox = document.createElement("div");
             itemBox.id = "itemBox";
             itemBox.className = "classItemBox";
 
-            // 하위 태그 생성
             var itemBoxes = document.getElementsByClassName("classItemBox");
             var itemBoxIndex = itemBoxes.length;
             var input = document.createElement("input");
@@ -522,7 +506,7 @@
             minusButton.onclick = function () {
               removeItemBox(this, itemBoxIndex);
             };
-            //'빼기' 버튼 클릭 시
+
             minusButton.addEventListener("click", function () {
               itemBox.removeChild(input);
               itemBox.removeChild(minusButton);
@@ -531,7 +515,6 @@
               updateItems();
             });
 
-            // 하위 태그를 추가
             itemBox.appendChild(input);
             itemBox.appendChild(minusButton);
             itemBoxContainer.appendChild(itemBox);
@@ -561,7 +544,6 @@
               spinSpeedValue.value = 50;
             }
             rotationSpeed = spinSpeed * -1;
-            // currentRotation = 0;
           }
 
           function changeColor() {
@@ -689,7 +671,6 @@
             }
           }
 
-          //textarea로 줄 마다 추가하는 것도 고려해봐야함 sub메뉴를 만들지 말지;
         </script>
 
         <!-- <div id="banner">
